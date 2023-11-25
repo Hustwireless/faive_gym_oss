@@ -1,0 +1,358 @@
+<mujoco model="pin_hand">
+    <compiler angle="radian" meshdir="assets" autolimits="true"/>
+
+    <option impratio="10"/>
+
+    <default>
+        <!-- <position ctrllimited="true"/> -->
+        <tendon limited="true" range="-0.001 0.001"/>
+        <position ctrllimited="true" forcelimited="true" forcerange="-1 1" kp="2."/>
+        <default class="hand">
+            <geom solimp="0.5 0.99 0.0001" solref="0.005 1"/> 
+            <mesh scale="1 1 1"/>
+            <joint type="hinge" limited="true" damping="0.05" armature="0.001" margin="0.01" frictionloss="0.001"/>
+            <!-- actuator configuration -->
+
+            <default class="palm">
+                <default class="palm_visual">
+                    <geom type="mesh" material="darkpurple" contype="0" conaffinity="0" group="2" mesh="palm"/>
+                </default>
+                <default class="palm_collision">
+                    <geom type="mesh" mesh="palm" group="3"/>
+                </default>
+            </default>
+
+            <default class="th_base">
+                <default class="th_base_visual">
+                    <geom type="mesh" material="green" contype="0" conaffinity="0" group="2" mesh="th_base"/>
+                </default>
+                <default class="th_base_collision">
+                    <geom type="mesh" mesh="th_base" group="3"/>
+                </default>
+                <joint axis="-0.00754398 0.02467526 0" range="0 1.57" pos="-0.01184292 -0.02 -0.008"/>
+            </default>
+
+            <default class="th_meta">
+                <default class="th_meta_visual">
+                    <geom type="mesh" material="green" contype="0" conaffinity="0" group="2" mesh="th_meta"/>
+                </default>
+                <default class="th_meta_collision">
+                    <geom type="mesh" mesh="th_meta" group="3"/>
+                </default>
+                <joint pos="-0.03576285 -0.00437817 0" axis="0 0 1" range="-0.8 1"/>
+            </default>
+
+            <default class="th_proximal">
+                <default class="th_proximal_visual">
+                    <geom type="mesh" material="green" contype="0" conaffinity="0" group="2" mesh="th_proximal"/>
+                </default>
+                <default class="th_proximal_collision">
+                    <geom type="mesh" mesh="th_proximal" group="3"/>
+                </default>
+                <joint pos="-0.05839026 0.02956296 -0.008" axis="0.01131371 0.01131371 0" range="0 2"/>
+            </default>
+
+            <default class="th_distal">
+                <default class="th_distal_visual">
+                    <geom type="mesh" material="green" contype="0" conaffinity="0" group="2" mesh="th_distal"/>
+                </default>
+                <default class="th_distal_collision">
+                    <geom type="mesh" mesh="th_distal" group="3"/>
+                </default>
+                <joint pos="-0.08667454 0.05784723 -0.008" axis="0.01131371 0.01131371 0" range="0 2"/>
+            </default>
+
+            <default class="meta">
+                <default class="meta_visual">
+                    <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="meta"/>
+                </default>
+                <default class="meta_collision">
+                    <geom type="mesh" mesh="meta" group="3"/>
+                </default>
+                <!-- <joint pos="0 0.02 0" axis="0 0 1" range="-3 3"/> -->
+            </default>
+
+            <default class="proximal">
+                <default class="proximal_visual">
+                    <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="proximal"/>
+                </default>
+                <default class="proximal_collision">
+                    <geom type="mesh" mesh="proximal" group="3"/>
+                </default>
+                <joint pos="0 0.07 -0.008" axis="1 0 0" range="0 2"/>
+            </default>
+
+            <default class="middle">
+                <default class="middle_visual">
+                    <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="middle"/>
+                </default>
+                <default class="middle_collision">
+                    <geom type="mesh" mesh="middle" group="3"/>                    
+                </default>
+                <joint pos="0 0.115 -0.008" axis="1 0 0" range="0 2"/>
+            </default>
+
+            <default class="distal">
+                <default class="distal_visual">
+                    <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="distal"/>
+                </default>
+                <default class="distal_collision">
+                    <geom type="mesh" mesh="distal" group="3"/>
+                </default>
+                <joint pos="0 0.143 -0.008" axis="1 0 0" range="0 2"/>
+            </default>
+        </default>
+
+    </default>
+
+    <asset>
+        <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+        <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
+        markrgb="0.8 0.8 0.8" width="300" height="300"/>
+        <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+
+        <material name="purple" specular="0.5" shininess="0.5" rgba="0.58823529 0.37254902 0.83137255 1"/>
+        <material name="green" specular="0.5" shininess="0.5" rgba="0.54509804 0.83137255 0.31372549 1"/>
+        <material name="darkpurple" specular="0.0" shininess="0.5" rgba="0.45098039 0.30980392 0.60392157 1"/>
+        <material name="darkgreen" specular="0.0" shininess="0.5" rgba="0.24705882 0.42745098 0.30588235 1"/>
+
+
+        <!-- mesh name needs to be specified for isaacgym -->
+        <mesh name="palm" class="hand" file="palm.stl"/>
+        <mesh name="th_base" class="hand" file="th_base.stl"/>
+        <mesh name="th_meta" class="hand" file="th_meta.stl"/>
+        <mesh name="th_proximal" class="hand" file="th_proximal.stl"/>
+        <mesh name="th_distal" class="hand" file="th_distal.stl"/>
+        <mesh name="meta" class="hand" file="meta.stl"/>
+        <mesh name="proximal" class="hand" file="proximal.stl"/>
+        <mesh name="middle" class="hand" file="middle.stl"/>
+        <mesh name="distal" class="hand" file="distal.stl"/>
+    </asset>
+
+    <worldbody>
+        
+        <!-- <body name="object" pos="0 0.02 0.05">
+            <freejoint/>
+            <geom type="ellipsoid" size="0.037 0.037 0.037" material="green" condim="6" priority="1" friction="0.5 0.01 0.003"/>
+        </body> -->
+
+        <light pos="0 0 1"/>
+        <light pos="0.3 0 1.5" dir="0 0 -1" directional="true"/>
+        <geom name="floor" pos="0 0 -0.1" size="0 0 0.05" type="plane" material="groundplane"/>
+
+        <body name="palm" childclass="palm">
+            <inertial mass="3" pos="0 0 0.09" diaginertia="0.0138 0.0138 0.00744"/>
+            <!-- dummy joint for suprising collisions -->
+            <joint name="dummy" axis="0 0 1" range="0 0.0000000001" pos="-0.01184292 -0.02 -0.008"/>
+            <geom class="palm_visual"/>
+            <geom class="palm_collision"/>
+            <body name="th_base" childclass="th_base">
+                <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
+                <joint name="th_base"/>
+                <geom class="th_base_visual" material="green"/>
+                <geom class="th_base_collision"/>
+                <body name="th_meta" childclass="th_meta">
+                    <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
+                    <joint name="th_meta" range="-0.8 1"/>
+                    <geom class="th_meta_visual" material="green"/>
+                    <geom class="th_meta_collision"/>
+                    <body name="th_proximal" childclass="th_proximal">
+                        <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
+                        <joint name="th_proximal"/>
+                        <geom class="th_proximal_visual" material="green"/>
+                        <geom class="th_proximal_collision"/>
+                        <body name="th_distal" childclass="th_distal">
+                            <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
+                            <joint name="th_distal"/>
+                            <geom class="th_distal_visual" material="green"/>
+                            <geom class="th_distal_collision"/>
+                        </body>
+                    </body>
+                </body>
+            </body>
+
+            <body name="ff_meta" childclass="meta" pos="-0.01900000 -0.00533223 0">
+                <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
+                <!-- <joint name="ff_meta" range="-1 1"/> -->
+                <geom class="meta_visual"/>
+                <geom class="meta_collision"/>
+                <body name="ff_proximal" childclass="proximal">
+                    <inertial mass="0.03" pos="0 0 0.0225" quat="1 0 0 1" diaginertia="1e-05 9.8e-06 1.8e-06"/>
+                    <joint name="ff_proximal"/>
+                    <geom class="proximal_visual"/>
+                    <geom class="proximal_collision"/>
+
+                    <body name="ff_middle" childclass="middle">
+                        <inertial mass="0.017" pos="0 0 0.0125" quat="1 0 0 1" diaginertia="2.7e-06 2.6e-06 8.7e-07"/>
+                        <joint name="ff_middle"/>
+                        <geom class="middle_visual"/>
+                        <geom class="middle_collision"/>
+
+                        <body name="ff_distal" childclass="distal">
+                            <inertial mass="0.013" pos="0 0 0.0130769" quat="1 0 0 1" diaginertia="1.28092e-06 1.12092e-06 5.3e-07"/>
+                            <joint name="ff_distal"/>
+                            <geom class="distal_visual"/>
+                            <geom class="distal_collision"/>
+                        </body>
+                    </body>
+                </body>
+            </body>
+
+            <body name="mf_meta" childclass="meta">
+                <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
+                <!-- <joint name="mf_meta" range="-1 1"/> -->
+                <geom class="meta_visual"/>
+                <geom class="meta_collision"/>
+                <body name="mf_proximal" childclass="proximal">
+                    <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
+                    <joint name="mf_proximal"/>
+                    <geom class="proximal_visual"/>
+                    <geom class="proximal_collision"/>
+
+                    <body name="mf_middle" childclass="middle">
+                        <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
+                        <joint name="mf_middle"/>
+                        <geom class="middle_visual"/>
+                        <geom class="middle_collision"/>
+
+                        <body name="mf_distal" childclass="distal">
+                            <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
+                            <joint name="mf_distal"/>
+                            <geom class="distal_visual"/>
+                            <geom class="distal_collision"/>
+                        </body>
+                    </body>
+                </body>
+            </body>
+
+            <body name="rf_meta" childclass="meta" pos="0.01900000 -0.00533223 0">
+                <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
+                <!-- <joint name="rf_meta" range="-1 1"/> -->
+                <geom class="meta_visual"/>
+                <geom class="meta_collision"/>
+                <body name="rf_proximal" childclass="proximal">
+                    <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
+                    <joint name="rf_proximal"/>
+                    <geom class="proximal_visual"/>
+                    <geom class="proximal_collision"/>
+
+                    <body name="rf_middle" childclass="middle">
+                        <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
+                        <joint name="rf_middle"/>
+                        <geom class="middle_visual"/>
+                        <geom class="middle_collision"/>
+
+                        <body name="rf_distal" childclass="distal">
+                            <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
+                            <joint name="rf_distal"/>
+                            <geom class="distal_visual"/>
+                            <geom class="distal_collision"/>
+                        </body>
+                    </body>
+                </body>
+
+            </body>
+            
+            <body name="lf_meta" childclass="meta" pos="0.038 -0.02338606 0">
+                <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
+                <!-- <joint name="lf_meta" range="-1 1"/> -->
+                <geom class="meta_visual"/>
+                <geom class="meta_collision"/>
+                <body name="lf_proximal" childclass="proximal">
+                    <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
+                    <joint name="lf_proximal"/>
+                    <geom class="proximal_visual"/>
+                    <geom class="proximal_collision"/>
+
+                    <body name="lf_middle" childclass="middle">
+                        <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
+                        <joint name="lf_middle"/>
+                        <geom class="middle_visual"/>
+                        <geom class="middle_collision"/>
+
+                        <body name="lf_distal" childclass="distal">
+                            <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
+                            <joint name="lf_distal"/>
+                            <geom class="distal_visual"/>
+                            <geom class="distal_collision"/>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+
+    </worldbody>
+
+    <tendon>
+        <fixed name="th_couple">
+            <joint joint="th_proximal" coef="0.5"/>
+            <joint joint="th_distal" coef="-0.5"/>
+        </fixed>
+        <fixed name="ff_couple">
+            <joint joint="ff_middle" coef="0.5"/>
+            <joint joint="ff_distal" coef="-0.5"/>
+        </fixed>
+        <fixed name="mf_couple">
+            <joint joint="mf_middle" coef="0.5"/>
+            <joint joint="mf_distal" coef="-0.5"/>
+        </fixed>
+        <fixed name="rf_couple">
+            <joint joint="rf_middle" coef="0.5"/>
+            <joint joint="rf_distal" coef="-0.5"/>
+        </fixed>
+        <fixed name="lf_couple">
+            <joint joint="lf_middle" coef="0.5"/>
+            <joint joint="lf_distal" coef="-0.5"/>
+        </fixed>
+        <!-- <fixed name="ff_rf_meta_couple">
+            <joint joint="ff_meta" coef="0.5"/>
+            <joint joint="rf_meta" coef="0.5"/>
+        </fixed>
+        <fixed name="ff_lf_meta_couple">
+            <joint joint="ff_meta" coef="0.5"/>
+            <joint joint="lf_meta" coef="0.25"/>
+        </fixed> -->
+    </tendon>
+
+    <sensor>
+        <jointpos name="th_base" joint="th_base"/>
+        <jointpos name="th_meta" joint="th_meta"/>
+        <jointpos name="th_proximal" joint="th_proximal"/>
+        <jointpos name="th_distal" joint="th_distal"/>
+        <!-- <jointpos name="ff_meta" joint="ff_meta"/> -->
+        <jointpos name="ff_proximal" joint="ff_proximal"/>
+        <jointpos name="ff_middle" joint="ff_middle"/>
+        <jointpos name="ff_distal" joint="ff_distal"/>
+        <!-- <jointpos name="mf_meta" joint="mf_meta"/> -->
+        <jointpos name="mf_proximal" joint="mf_proximal"/>
+        <jointpos name="mf_middle" joint="mf_middle"/>
+        <jointpos name="mf_distal" joint="mf_distal"/>
+        <!-- <jointpos name="rf_meta" joint="rf_meta"/> -->
+        <jointpos name="rf_proximal" joint="rf_proximal"/>
+        <jointpos name="rf_middle" joint="rf_middle"/>
+        <jointpos name="rf_distal" joint="rf_distal"/>
+        <!-- <jointpos name="lf_meta" joint="lf_meta"/> -->
+        <jointpos name="lf_proximal" joint="lf_proximal"/>
+        <jointpos name="lf_middle" joint="lf_middle"/>
+        <jointpos name="lf_distal" joint="lf_distal"/>
+    </sensor>
+
+    <actuator>
+        <!-- <position name="ff_meta" joint="ff_meta" ctrlrange="0 0.25"/> -->
+        <position name="th_base" joint="th_base" ctrlrange="0 1.57"/>
+        <position name="th_meta" joint="th_meta" ctrlrange="-0.8 1"/>
+        <position name="th_proximal" joint="th_proximal" ctrlrange="0 2"/>
+
+        <position name="ff_proximal" joint="ff_proximal" ctrlrange="0 2"/>
+        <position name="ff_middle" joint="ff_middle" ctrlrange="0 2"/>
+
+        <position name="mf_proximal" joint="mf_proximal" ctrlrange="0 2"/>
+        <position name="mf_middle" joint="mf_middle" ctrlrange="0 2"/>
+
+        <position name="rf_proximal" joint="rf_proximal" ctrlrange="0 2"/>
+        <position name="rf_middle" joint="rf_middle" ctrlrange="0 2"/>
+
+        <position name="lf_proximal" joint="lf_proximal" ctrlrange="0 2"/>
+        <position name="lf_middle" joint="lf_middle" ctrlrange="0 2"/>
+    </actuator>
+</mujoco>
