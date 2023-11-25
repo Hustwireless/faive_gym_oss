@@ -1,3 +1,17 @@
+# group C
+## Training Steps
+
+1. Source the virtual environment with alias command
+```bash
+src-gym
+```
+
+2. Navigate to gym folder and run the training script (wandb setting is now on by default)
+```bash
+cd /path/to/faive_gym/faive_gym
+python train.py task=GroupCHandP0_sphere capture_video=True force_render=False
+```
+
 # faive_gym
 IsaacGym environments for the Faive Hand (and also somewhat easily extendable to other robotic hands), intended to be used together with [IsaacGymEnvs](https://github.com/NVIDIA-Omniverse/IsaacGymEnvs)
 ![](img/isaacgym_preview.gif)
