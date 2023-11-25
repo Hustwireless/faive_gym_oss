@@ -932,6 +932,7 @@ class RobotHand(VecTask):
         hand_asset = self.gym.load_asset(
             self.sim, asset_root, hand_asset_file, asset_options
         )
+        print("========loaded=========")
         # set up friction and restitution params
         # sphere rotation is somewhat brittle to these params...
         hand_props = self.gym.get_asset_rigid_shape_properties(hand_asset)
