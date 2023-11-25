@@ -69,7 +69,7 @@
                 <default class="meta_collision">
                     <geom type="mesh" mesh="meta" group="3"/>
                 </default>
-                <joint pos="0 0.02 0" axis="0 0 1" range="-3 3"/>
+                <joint pos="0 0.02 0" axis="0 0 1" range="0 2"/>
             </default>
 
             <default class="proximal">
@@ -173,7 +173,7 @@
 
             <body name="ff_meta" childclass="meta" pos="-0.01900000 -0.00533223 0">
                 <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
-                <joint name="ff_meta" range="-1 1"/>
+                <joint name="ff_meta"/>
                 <geom class="meta_visual"/>
                 <geom class="meta_collision"/>
                 <body name="ff_proximal" childclass="proximal">
@@ -226,7 +226,7 @@
 
             <body name="rf_meta" childclass="meta" pos="0.01900000 -0.00533223 0">
                 <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
-                <joint name="rf_meta" range="-1 1"/>
+                <joint name="rf_meta"/>
                 <geom class="meta_visual"/>
                 <geom class="meta_collision"/>
                 <body name="rf_proximal" childclass="proximal">
@@ -254,7 +254,7 @@
             
             <body name="lf_meta" childclass="meta" pos="0.038 -0.02338606 0">
                 <inertial mass="0.03" pos="0 0 0.04" quat="1 0 0 1" diaginertia="1.638e-05 1.45e-05 4.272e-06"/>
-                <joint name="lf_meta" range="-1 1"/>
+                <joint name="lf_meta"/>
                 <geom class="meta_visual"/>
                 <geom class="meta_collision"/>
                 <body name="lf_proximal" childclass="proximal">
@@ -336,7 +336,6 @@
     </sensor>
 
     <actuator>
-        <position name="ff_meta" joint="ff_meta" ctrlrange="0 0.25"/>
         <position name="th_base" joint="th_base" ctrlrange="0 1.57"/>
         <position name="th_meta" joint="th_meta" ctrlrange="-0.8 1"/>
         <position name="th_proximal" joint="th_proximal" ctrlrange="0 1.5"/>
@@ -352,5 +351,7 @@
 
         <position name="lf_proximal" joint="lf_proximal" ctrlrange="0 1.5"/>
         <position name="lf_middle" joint="lf_middle" ctrlrange="0 1.5"/>
+        
+        <position name="ff_meta" joint="ff_meta" ctrlrange="0 0.25"/>
     </actuator>
 </mujoco>

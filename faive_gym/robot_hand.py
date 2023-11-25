@@ -1025,7 +1025,7 @@ class RobotHand(VecTask):
             if actuated_dof_range_override != "None":
                 # if dof range override is set, use that instead
                 # check that the override is within the range of the hand
-                assert actuated_dof_lower_limit - 1e-3 <= actuated_dof_range_override[i][0]
+                assert actuated_dof_lower_limit - 1e-3 <= actuated_dof_range_override[i][0], f"actuated_dof_lower_limit {actuated_dof_lower_limit}, actuated_dof_range_override {actuated_dof_range_override[i][0]}"
                 assert actuated_dof_range_override[i][1] <= actuated_dof_upper_limit + 1e-3
                 assert actuated_dof_range_override[i][0] < actuated_dof_range_override[i][1]
                 self.actuated_dof_lower_limits[i] = actuated_dof_range_override[i][0]
