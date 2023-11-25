@@ -1,9 +1,9 @@
 # group C
 ## Training Steps
 
-1. Source the virtual environment with alias command
+1. Source the virtual environment
 ```bash
-src-gym
+source ~/rlgpu/bin/activate
 ```
 
 2. Navigate to gym folder and run the training script (wandb setting is now on by default)
