@@ -246,19 +246,19 @@
 
     <actuator>
         <position name="th_base" joint="th_base" ctrlrange="0 1.57"/>
-        <position name="th_meta" joint="th_meta" ctrlrange="-0.8 1"/>
-        <position name="th_proximal" joint="th_proximal" ctrlrange="0 2"/>
-        <position name="th_distal" joint="th_distal" ctrlrange="0 2"/>
+        <position name="th_meta" joint="th_meta" ctrlrange="-0.8 0.65"/>
+        <position name="th_proximal" joint="th_proximal" ctrlrange="0 1.57"/>
+        <position name="th_distal" joint="th_distal" ctrlrange="0 1.57"/>
 
-        <position name="ff_proximal" joint="ff_proximal" ctrlrange="0 2"/>
-        <position name="ff_middle" joint="ff_middle" ctrlrange="0 2"/>
+        <position name="ff_proximal" joint="ff_proximal" ctrlrange="0 1.57"/>
+        <position name="ff_middle" joint="ff_middle" ctrlrange="0 1.57"/>
 
-        <position name="mf_proximal" joint="mf_proximal" ctrlrange="0 2"/>
-        <position name="mf_middle" joint="mf_middle" ctrlrange="0 2"/>
+        <position name="mf_proximal" joint="mf_proximal" ctrlrange="0 1.57"/>
+        <position name="mf_middle" joint="mf_middle" ctrlrange="0 1.57"/>
 
-        <position name="rf_proximal" joint="rf_proximal" ctrlrange="0 2"/>
-        <position name="rf_middle" joint="rf_middle" ctrlrange="0 2"/>
+        <position name="rf_proximal" joint="rf_proximal" ctrlrange="0 1.57"/>
+        <position name="rf_middle" joint="rf_middle" ctrlrange="0 1.57"/>
 
-        <position name="lf_proximal" joint="lf_proximal" ctrlrange="0 2"/>
+        <position name="lf_proximal" joint="lf_proximal" ctrlrange="0 1.57"/>
     </actuator>
 </mujoco>
