@@ -6,22 +6,22 @@ defaults:
 name: RobotHand
 
 env:
-  numActions: 12
-  object_start_offset: [0, -0.05, 0.03]
-  hand_start_r: [ 0, -0.258819, 0.9659258, 0 ]
+  numActions: 11
+  object_start_offset: [0, -0.2, -0.02]
+  hand_start_r: [ 0, -0.8660254, 0.5, 0 ]
 
 asset:
-  model_file: "groupc_hand/hand_meta_dof.xml"
+  model_file: "groupc_hand/hand_new.xml"
   force_sensor_names: ["th_distal", "mf_distal", "lf_distal", "rf_distal", "ff_distal"]
   pose_sensor_names: ["th_distal", "mf_distal", "lf_distal", "rf_distal", "ff_distal"]
 
 observations:
   obs_dims:
-    dof_position: 12
-    dof_pos_target: 12
-    dof_speed: 12
-    dof_speed_numerical: 12
-    dof_force: 12
+    dof_position: 11
+    dof_pos_target: 11
+    dof_speed: 11
+    dof_speed_numerical: 11
+    dof_force: 11
     obj_pos: 3
     obj_quat: 4
     obj_linvel: 3
@@ -36,7 +36,7 @@ observations:
     pose_sensor_linvel: 15  # 3 * 5
     pose_sensor_angvel: 15  # 3 * 5
     force_sensor_force: 30  # 6 * 5
-    actions: 12
+    actions: 11
     obj_pose_history: 35 # 7 dof pose * 5 history length
-    dof_pos_history: 60  # 12 dof joint * 5 history length
+    dof_pos_history: 55  # 11 dof joint * 5 history length
 
