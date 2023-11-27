@@ -1,0 +1,264 @@
+<mujoco model="pin_hand">
+    <compiler angle="radian" meshdir="assets" autolimits="true" inertiafromgeom="true"/>
+
+    <option impratio="10"/>
+
+    <default>
+        <!-- <position ctrllimited="true"/> -->
+        <tendon limited="true" range="-0.001 0.001"/>
+        <position ctrllimited="true" forcelimited="true" forcerange="-1 1" kp="2."/>
+        <default class="hand">
+            <geom solimp="0.5 0.99 0.0001" solref="0.005 1"/> 
+            <mesh scale="1 1 1"/>
+            <joint type="hinge" limited="true" damping="0.05" armature="0.001" margin="0.01" frictionloss="0.001"/>
+            <!-- actuator configuration -->
+        </default>
+    </default>
+
+    <asset>
+        <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+        <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
+        markrgb="0.8 0.8 0.8" width="300" height="300"/>
+        <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+
+        <material name="purple" specular="0.5" shininess="0.5" rgba="0.58823529 0.37254902 0.83137255 1"/>
+        <material name="green" specular="0.5" shininess="0.5" rgba="0.54509804 0.83137255 0.31372549 1"/>
+        <material name="darkpurple" specular="0.0" shininess="0.5" rgba="0.45098039 0.30980392 0.60392157 1"/>
+        <material name="darkgreen" specular="0.0" shininess="0.5" rgba="0.24705882 0.42745098 0.30588235 1"/>
+
+
+        <!-- mesh name needs to be specified for isaacgym -->
+        <mesh name="palm" class="hand" file="palm.stl"/>
+        <mesh name="th_base" class="hand" file="th_base.stl"/>
+        <mesh name="th_meta" class="hand" file="th_meta.stl"/>
+        <mesh name="th_proximal" class="hand" file="th_proximal.stl"/>
+        <mesh name="th_distal" class="hand" file="th_distal.stl"/>
+
+        <mesh name="ff_proximal" class="hand" file="ff_proximal.stl"/>
+        <mesh name="ff_middle" class="hand" file="ff_middle.stl"/>
+        <mesh name="ff_distal" class="hand" file="ff_distal.stl"/>
+
+        <mesh name="mf_proximal" class="hand" file="mf_proximal.stl"/>th_proximal
+        <mesh name="mf_middle" class="hand" file="mf_middle.stl"/>
+        <mesh name="mf_distal" class="hand" file="mf_distal.stl"/>
+
+        <mesh name="rf_proximal" class="hand" file="rf_proximal.stl"/>
+        <mesh name="rf_middle" class="hand" file="rf_middle.stl"/>
+        <mesh name="rf_distal" class="hand" file="rf_distal.stl"/>
+
+        <mesh name="lf_proximal" class="hand" file="lf_proximal.stl"/>
+        <mesh name="lf_middle" class="hand" file="lf_middle.stl"/>
+        <mesh name="lf_distal" class="hand" file="lf_distal.stl"/>
+
+        <mesh name="forearm" class="hand" file="forearm.stl"/>
+    </asset>
+
+    <worldbody>
+        
+        <!-- <body name="object" pos="0 0.02 0.05">
+            <freejoint/>
+            <geom type="ellipsoid" size="0.037 0.037 0.037" material="green" condim="6" priority="1" friction="0.5 0.01 0.003"/>
+        </body> -->
+
+        <light pos="0 0 1"/>
+        <light pos="0.3 0 1.5" dir="0 0 -1" directional="true"/>
+        <geom name="floor" pos="0 0 -0.1" size="0 0 0.05" type="plane" material="groundplane"/>
+
+        <body name="forearm" childclass="hand" pos="0 0 0.1">
+            <inertial mass="0.061" pos="0.00021981 -0.00120626 0.04973851" diaginertia="0.0000899 0.00008425 0.00006785"/>  
+            <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="forearm"/>
+            <geom type="mesh" mesh="forearm" group="3"/>
+            <joint name="dummy" axis="0 0 1" range="0 0.0000000001" pos="-0.01184292 -0.02 -0.008"/>
+
+            <body name="palm">
+                <inertial mass="0.09398993" pos="0.01055279 0.00020801 0.16106664" diaginertia="0.00006838 0.0001026 0.00004193"/>
+                <!-- dummy joint for suprising collisions -->
+                <!-- <joint name="dummy2" axis="0 0 1" range="0 0.0000000001" pos="-0.01184292 -0.02 -0.008"/> -->
+                <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="palm"/>
+                <geom type="mesh" mesh="palm" group="3"/>
+                <body name="th_base">
+                    <inertial mass="0.00515864" pos="-0.02539927 0.00061581 0.13321849" diaginertia="6.049e-7 6.511e-7 3.5e-7"/>
+                    <joint name="th_base" axis="-0.00102330 0 0.00334707" range="0 1.5707963267948966" pos="-0.01617081 -0.00100549 0.13316140"/>
+
+                    <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="th_base"/>
+                    <geom type="mesh" mesh="th_base" group="3"/>
+
+                    <body name="th_meta">
+                        <inertial mass="0.00989869" pos="-0.04963667 -7.307e-5 0.14812745" diaginertia="9.8e-7 0.00000155 0.00000107"/>
+                        <joint name="th_meta" axis="0 1 0" range="-2 1.5707963267948966" pos="-0.03576285 -0.00350549 0.13462732"/>
+                        <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="th_meta"/>
+                        <geom type="mesh" mesh="th_meta" group="3"/>
+
+                        <body name="th_proximal">
+                            <inertial mass="0.0093993" pos="-0.078546 -0.00012489 0.17687447" diaginertia="8.6e-7 0.00000143 9.2e-7"/>
+                            <joint name="th_proximal" axis="0.00250000 0.00353553 0.00250000" range="0 1.5707963267948966" pos="-0.06504712 -0.00191970 0.16191159"/>
+                            <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="th_proximal"/>
+                            <geom type="mesh" mesh="th_proximal" group="3"/>
+
+                            <body name="th_distal">
+                                <inertial mass="0.00713023" pos="0.10368063 0.00018515 0.00018515" diaginertia="4.5e-7 7.4e-7 5.1e-7"/>
+                                <joint name="th_distal" axis="0.00250000 0.00353553 0.00250000" range="0 1.5707963267948966" pos="-0.09683139 -0.00686945 0.18669587"/>
+                                <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="th_distal"/>
+                                <geom type="mesh" mesh="th_distal" group="3"/>
+
+                            </body>
+                        </body>
+                    </body>
+                </body>
+
+                
+                <body name="ff_proximal">
+                    <inertial mass="0.011" pos="-0.02659043 -0.00007336 0.2258686" diaginertia="0.00000193 0.00000196 4.2e-7"/>
+                    <joint name="ff_proximal" axis="0.00397809 0 0.00041811" range="0 1.5707963267948966" pos="-0.01726477 -0.00050549 0.20413106"/>
+                    <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="ff_proximal"/>
+                    <geom type="mesh" mesh="ff_proximal" group="3"/>
+
+                    <body name="ff_middle">
+                        <inertial mass="0.00608264" pos="-0.03 0.00024646 0.26183064" diaginertia="6.237e-7 6.4e-7 2.3e-7"/>
+                        <joint name="ff_middle" axis="0.00397809 0 0.00041811" range="0 1.5707963267948966" pos="-0.02097403 -0.00050549 0.24898907"/>
+                        <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="ff_middle"/>
+                        <geom type="mesh" mesh="ff_middle" group="3"/>
+
+                        <body name="ff_distal">
+                            <inertial mass="0.00616" pos="-0.0333654 0.00038986 0.29033496" diaginertia="6e-7 6e-7 1.7e-7"/>
+                            <joint name="ff_distal" axis="0.00397809 0 0.00041811" range="0 1.5707963267948966" pos="-0.04080770 -0.00050549 0.27505870"/>
+                            <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="ff_distal"/>
+                            <geom type="mesh" mesh="ff_distal" group="3"/>
+
+                        </body>
+                    </body>
+                </body>
+
+                
+                <body name="mf_proximal">
+                    <inertial mass="0.01079146" pos="-2.379e-6 -0.00007337 0.23159875" diaginertia="0.00000195 4.057e-7 0.00000196"/>
+                    <joint name="mf_proximal" axis="1 0 0" range="0 1.5707963267948966" pos="0.00200000 -0.00050549 0.20900549"/>
+                    <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="mf_proximal"/>
+                    <geom type="mesh" mesh="mf_proximal" group="3"/>
+
+                    <body name="mf_middle">
+                        <inertial mass="0.006" pos="-1.521e-6 0.1287533 -0.00875195" diaginertia="6.3e-7 2.2e-7 6.4e-7"/>
+                        <joint name="mf_middle" axis="1 0 0" range="0 1.5707963267948966" pos="0.00280000 -0.00050549 0.25400549"/>
+                        <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="mf_middle"/>
+                        <geom type="mesh" mesh="mf_middle" group="3"/>
+
+
+                        <body name="mf_distal">
+                            <inertial mass="0.00616751" pos="-0.00000169 0.15741464 -0.0088953" diaginertia="6.1e-7 1.6e-7 6e-7"/>
+                            <joint name="mf_distal" axis="1 0 0" range="0 1.5707963267948966" pos="0.00250000 -0.00050549 0.28200549"/>
+                            <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="mf_distal"/>
+                            <geom type="mesh" mesh="mf_distal" group="3"/>
+                        </body>
+                    </body>
+                </body>
+
+               
+                <body name="rf_proximal">
+                    <inertial mass="0.01079145" pos="0.02658569 0.08686361 -0.00843212" diaginertia="0.00000193 4.2e-7 0.00000196"/>
+                    <joint name="rf_proximal" axis="0.00497261 0 -0.00052264" range="0 1.5707963267948966" pos="0.01627025 -0.00050549 0.20423559"/>
+                    <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="rf_proximal"/>
+                    <geom type="mesh" mesh="rf_proximal" group="3"/>
+
+                    <body name="rf_middle">
+                        <inertial mass="0.00608264" pos="0.0303663 0.1228254 -0.00875194" diaginertia="6.2e-7 2.3e-7 6.4e-7"/>
+                        <joint name="rf_middle" axis="0.00497261 0 -0.00052264" range="0 1.5707963267948966" pos="0.02594664 -0.00050549 0.24846643"/>
+                        <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="rf_middle"/>
+                        <geom type="mesh" mesh="rf_middle" group="3"/>
+
+                        <body name="rf_distal">
+                            <inertial mass="0.00616751" pos="0.03336205 0.15132982 -0.00889534" diaginertia="6.032e-7 1.7e-7 6.039e-7"/>
+                            <joint name="rf_distal" axis="0.00497261 0 -0.00052264" range="0 1.5707963267948966" pos="0.03434331 -0.00050549 0.27573814"/>
+                            <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="rf_distal"/>
+                            <geom type="mesh" mesh="rf_distal" group="3"/>
+                        </body>
+                    </body>
+                </body>
+
+                
+
+                <body name="lf_proximal">
+                    <inertial mass="0.01079145" pos="0.05473172 0.06726657 -0.0060806" diaginertia="0.00000187 4.8e-7 0.00000196"/>
+                    <joint name="lf_proximal" axis="0.00389770 -0.00034862 -0.00082848" range="0 1.5707963267948966" pos="0.05090776 -0.00149084 0.18399283"/>
+                    <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="lf_proximal"/>
+                    <geom type="mesh" mesh="lf_proximal" group="3"/>
+
+                    <body name="lf_middle">
+                        <inertial mass="0.00608264" pos="0.06242717 0.10259321 -0.00675825" diaginertia="6.1e-7 2.5e-7 6.4e-7"/>
+                        <joint name="lf_middle" axis="0.00389770 -0.00034862 -0.00082848" range="0 1.5707963267948966" pos="0.06106298 -0.00132947 0.22783899"/>
+                        <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="lf_middle"/>
+                        <geom type="mesh" mesh="lf_middle" group="3"/>
+
+
+                        <body name="lf_distal">
+                            <inertial mass="0.0061675" pos="0.0684983 0.13060123 -0.00718926" diaginertia="5.848e-7 1.9e-7 6e-7"/>
+                            <joint name="lf_distal" axis="0.00389770 -0.00034862 -0.00082848" range="0 1.5707963267948966" pos="0.06660441 -0.00115953 0.25528628"/>
+                            <geom type="mesh" material="purple" contype="0" conaffinity="0" group="2" mesh="lf_distal"/>
+                            <geom type="mesh" mesh="lf_distal" group="3"/>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+
+    </worldbody>
+
+    <tendon>
+        <fixed name="ff_couple">
+            <joint joint="ff_middle" coef="0.5"/>
+            <joint joint="ff_distal" coef="-0.5"/>
+        </fixed>
+        <fixed name="mf_couple">
+            <joint joint="mf_middle" coef="0.5"/>
+            <joint joint="mf_distal" coef="-0.5"/>
+        </fixed>
+        <fixed name="rf_couple">
+            <joint joint="rf_middle" coef="0.5"/>
+            <joint joint="rf_distal" coef="-0.5"/>
+        </fixed>
+        <fixed name="lf_couple1">
+            <joint joint="lf_middle" coef="0.5"/>
+            <joint joint="lf_distal" coef="-0.5"/>
+        </fixed>
+        <fixed name="lf_couple2">
+            <joint joint="lf_middle" coef="0.5"/>
+            <joint joint="lf_proximal" coef="-0.5"/>
+        </fixed>
+    </tendon>
+
+    <sensor>
+        <jointpos name="th_base" joint="th_base"/>
+        <jointpos name="th_meta" joint="th_meta"/>
+        <jointpos name="th_proximal" joint="th_proximal"/>
+        <jointpos name="th_distal" joint="th_distal"/>
+        <jointpos name="ff_proximal" joint="ff_proximal"/>
+        <jointpos name="ff_middle" joint="ff_middle"/>
+        <jointpos name="ff_distal" joint="ff_distal"/>
+        <jointpos name="mf_proximal" joint="mf_proximal"/>
+        <jointpos name="mf_middle" joint="mf_middle"/>
+        <jointpos name="mf_distal" joint="mf_distal"/>
+        <jointpos name="rf_proximal" joint="rf_proximal"/>
+        <jointpos name="rf_middle" joint="rf_middle"/>
+        <jointpos name="rf_distal" joint="rf_distal"/>
+        <jointpos name="lf_proximal" joint="lf_proximal"/>
+        <jointpos name="lf_middle" joint="lf_middle"/>
+        <jointpos name="lf_distal" joint="lf_distal"/>
+    </sensor>
+
+    <actuator>
+        <position name="th_base" joint="th_base" ctrlrange="0 1.57"/>
+        <position name="th_meta" joint="th_meta" ctrlrange="-0.8 1"/>
+        <position name="th_proximal" joint="th_proximal" ctrlrange="0 2"/>
+        <position name="th_distal" joint="th_distal" ctrlrange="0 2"/>
+
+        <position name="ff_proximal" joint="ff_proximal" ctrlrange="0 2"/>
+        <position name="ff_middle" joint="ff_middle" ctrlrange="0 2"/>
+
+        <position name="mf_proximal" joint="mf_proximal" ctrlrange="0 2"/>
+        <position name="mf_middle" joint="mf_middle" ctrlrange="0 2"/>
+
+        <position name="rf_proximal" joint="rf_proximal" ctrlrange="0 2"/>
+        <position name="rf_middle" joint="rf_middle" ctrlrange="0 2"/>
+
+        <position name="lf_proximal" joint="lf_proximal" ctrlrange="0 2"/>
+    </actuator>
+</mujoco>
