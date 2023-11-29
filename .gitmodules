@@ -1,3 +1,4 @@
 [submodule "assets/group_c_hand"]
 	path = assets/group_c_hand
 	url = git@github.com:felix-ch/robotic_hand.git
+	branch = main
