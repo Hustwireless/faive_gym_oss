@@ -12,6 +12,15 @@ cd /path/to/faive_gym/faive_gym
 python train.py task=GroupCHandP0_sphere capture_video=True force_render=False
 ```
 
+## Source Control
+Note that now `asset/group_c_hand` is a submodule, use the following commands when cloning or pulling latest changes
+```bash
+git clone --recurse-submodules <repository-url>
+git pull --recurse-submodules
+```
+Submodules can be treated as a git repo in itself. When commits are made to the submodules and you want to push to remote, navigate to its folder and do as an usual repo.
+
+
 # faive_gym
 IsaacGym environments for the Faive Hand (and also somewhat easily extendable to other robotic hands), intended to be used together with [IsaacGymEnvs](https://github.com/NVIDIA-Omniverse/IsaacGymEnvs)
 ![](img/isaacgym_preview.gif)
