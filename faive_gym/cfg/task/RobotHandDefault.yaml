@@ -13,7 +13,7 @@ env:
   numStates: None  # this will be overwritten in robot_hand.py
   numActions: None  # define in child config
   env_spacing: 0.2
-  episode_length_s: 10  # episode length in seconds
+  episode_length_s: 100  # episode length in seconds
   aggregate_mode: True  # provides a "modest performance boost", see isaacgym/docs/programming/physics.html
 
   object_type: ["block"]  # block, egg, pen, sphere, ... (check asset_files_dict of robot_hand.py for all options)
